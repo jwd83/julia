@@ -12,6 +12,8 @@ from numba import njit
 import numpy as np
 from enum import Enum, auto
 
+default_max_iterations = 128
+
 
 class Modes(Enum):
     search = auto()
@@ -67,7 +69,7 @@ print(f"Screen width: {w}, height: {h}")
 screen = pygame.display.set_mode((w, h), pygame.FULLSCREEN)
 
 # get the initial mouse position to real and imaginary parts
-iteration_limit = 32
+iteration_limit = default_max_iterations
 
 re_min = -2.0
 re_max = 2.0
@@ -122,7 +124,7 @@ while running:
                 im_min = -2.0
                 im_max = 2.0
                 zoom_start = None
-                iteration_limit = 32
+                iteration_limit = default_max_iterations
         if event.type == pygame.MOUSEBUTTONDOWN:
             if event.button == 1:
                 if mode == Modes.zoom:

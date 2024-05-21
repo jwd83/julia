@@ -1,3 +1,12 @@
+# hotkeys:
+#
+# s - search mode (default)
+# z - zoom mode
+# i - double the iteration limit
+# j - halve the iteration limit
+# r - reset the ranges and iteration limit
+
+
 import pygame
 from numba import njit
 import numpy as np
@@ -25,7 +34,7 @@ def generate_julia(
     re_max,
     im_min,
     im_max,
-    iteration_limit=20,
+    iteration_limit,
 ):
 
     c = complex(real, imaginary)
@@ -111,6 +120,7 @@ while running:
                 im_min = -2.0
                 im_max = 2.0
                 zoom_start = None
+                iteration_limit = 32
         if event.type == pygame.MOUSEBUTTONDOWN:
             if event.button == 1:
                 if mode == Modes.zoom:

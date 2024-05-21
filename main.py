@@ -84,6 +84,8 @@ z_imaginary = im_max + (im_min - im_max) * y / h
 zoom_start = None
 
 running = True
+
+last_render = ""
 while running:
     # convert the mouse position to real and imaginary parts
     x, y = pygame.mouse.get_pos()
@@ -144,12 +146,16 @@ while running:
                         zy = y
                         zoom_start = (z_real, z_imaginary)
 
-    julia_set = generate_julia(
-        w, h, imaginary, real, re_min, re_max, im_min, im_max, iteration_limit
-    )
+    this_render = f"{real}, {imaginary}, {re_min}, {re_max}, {im_min}, {im_max}, {iteration_limit}"
+    if this_render != last_render:
+        last_render = this_render
 
-    # create a surface from the julia set
-    surface = pygame.surfarray.make_surface(julia_set)
+        julia_set = generate_julia(
+            w, h, imaginary, real, re_min, re_max, im_min, im_max, iteration_limit
+        )
+
+        # create a surface from the julia set
+        surface = pygame.surfarray.make_surface(julia_set)
     screen.blit(surface, (0, 0))
 
     font = pygame.font.Font(None, 36)
